@@ -12,43 +12,52 @@ interface FromToProps {
 const FromTo = ({ from, to, setFrom, setTo }: FromToProps) => {
   const id = useId();
 
+  const format = (value: string, prefix: string) => {
+    if (!value) return "";
+    return `${prefix} ${Number(value).toLocaleString("en-US")}`;
+  };
+
+  const unformat = (value: string, prefix: string) => {
+    return value.replace(prefix, "").replace(/[ ,]/g, "");
+  };
+
   return (
     <div className={css.fromtoWrapper}>
       <div className={`${css.blockFrom} ${css.block}`}>
         <label className={css.label} htmlFor={`from-${id}`}>
-          From
+          Сar mileage / km
         </label>
         <input
-          value={from}
-          onChange={(e) => {
-            const val = e.target.value;
-
-            if (/^\d*$/.test(val)) {
-              setFrom(val);
-            }
-          }}
-          type="text"
-          placeholder="From"
           id={`from-${id}`}
+          type="text"
+          inputMode="numeric"
+          placeholder="From"
+          value={format(from, "From")}
+          onChange={(e) => {
+            const raw = unformat(e.target.value, "From");
+            if (/^\d*$/.test(raw)) setFrom(raw);
+          }}
         />
       </div>
 
       <div className={`${css.blockTo} ${css.block}`}>
-        <label className={css.label} htmlFor={`to-${id}`}>
+        <label
+          className={css.label}
+          htmlFor={`to-${id}`}
+          style={{ color: "transparent" }}
+        >
           To
         </label>
         <input
-          value={to}
-          onChange={(e) => {
-            const val = e.target.value;
-
-            if (/^\d*$/.test(val)) {
-              setTo(val);
-            }
-          }}
-          type="text"
-          placeholder="To"
           id={`to-${id}`}
+          type="text"
+          inputMode="numeric"
+          placeholder="To"
+          value={format(to, "To")}
+          onChange={(e) => {
+            const raw = unformat(e.target.value, "To");
+            if (/^\d*$/.test(raw)) setTo(raw);
+          }}
         />
       </div>
     </div>

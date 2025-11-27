@@ -12,6 +12,7 @@
     font-size: 12px;
     line-height: 1.33333;
     color: var(--gray);
+    margin-bottom: 8px;
 }
 
 .block input {
@@ -25,6 +26,14 @@
     line-height: 1.25;
     color: var(--main);
     background-color: var(--inputs);
+}
+
+.block input::placeholder {
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.25;
+    color: var(--main);
 }
 
 .blockFrom input {

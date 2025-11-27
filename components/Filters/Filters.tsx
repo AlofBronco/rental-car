@@ -5,12 +5,14 @@ import Select from "../Select/Select";
 import { useState } from "react";
 import css from "./Filters.module.css";
 import FromTo from "../FromTo/FromTo";
+import { type Filters } from "@/types/filters";
 
 interface FiltersProps {
   brands: Brand[];
+  onClick: (filters: Filters) => void;
 }
 
-const Filters = ({ brands }: FiltersProps) => {
+const Filters = ({ brands, onClick }: FiltersProps) => {
   const [brand, setBrand] = useState("");
   const [price, setPrice] = useState("");
   const [from, setFrom] = useState("");
@@ -37,6 +39,14 @@ const Filters = ({ brands }: FiltersProps) => {
       />
 
       <FromTo from={from} to={to} setFrom={setFrom} setTo={setTo} />
+
+      <button
+        className={css.button}
+        type="button"
+        onClick={() => onClick({ brand, price, from, to })}
+      >
+        Search
+      </button>
     </div>
   );
 };

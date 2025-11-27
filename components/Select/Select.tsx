@@ -41,7 +41,7 @@ const Select = ({
         >
           {value ? value : placeholder}
           <svg
-            className={`arrow ${open ? "up" : "down"}`}
+            className={`${css.arrow} ${open ? css.up : css.down}`}
             width="16"
             height="16"
           >
