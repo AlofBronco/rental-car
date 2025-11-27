@@ -11,11 +11,16 @@ const Catalog = async () => {
   const queryClient = new QueryClient();
 
   const page = 1;
-  const brand: Brand | null = null;
+  const perPage = 12;
+  const brand: Brand | undefined = undefined;
+  const price: string | undefined = undefined;
+  const minMileage: string | undefined = undefined;
+  const maxMileage: string | undefined = undefined;
 
   await queryClient.prefetchInfiniteQuery({
-    queryKey: ["cars", page, brand],
-    queryFn: () => fetchCars(),
+    queryKey: ["cars", perPage, brand, price, minMileage, maxMileage],
+    queryFn: () =>
+      fetchCars({ page, perPage, brand, price, minMileage, maxMileage }),
     initialPageParam: 1,
   });
 
