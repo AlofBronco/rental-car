@@ -10,9 +10,11 @@ const Header = () => {
   return (
     <header className={css.header}>
       <div className={css.logo}>
-        <svg className={css.logoIcon} width="102" height="16">
-          <use href="sprite.svg#icon-logo"></use>
-        </svg>
+        <Link href="/">
+          <svg className={css.logoIcon} width="102" height="16">
+            <use href="/sprite.svg#icon-logo"></use>
+          </svg>
+        </Link>
       </div>
       <nav>
         <ul className={css.list}>

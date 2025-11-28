@@ -4,6 +4,7 @@ import { Car } from "@/types/cars";
 import css from "./CarsItem.module.css";
 import Image from "next/image";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface CarsItemProps {
   car: Car;
@@ -11,6 +12,7 @@ interface CarsItemProps {
 
 const CarsItem = ({ car }: CarsItemProps) => {
   const [liked, setLiked] = useState(false);
+  const router = useRouter();
 
   return (
     <li className={css.item}>
@@ -51,12 +53,18 @@ const CarsItem = ({ car }: CarsItemProps) => {
               <li>{car.address}</li>
               <li>{car.rentalCompany}</li>
               <li>{car.type}</li>
-              <li>{car.mileage}</li>
+              <li>{`${car.mileage.toLocaleString("en-US").replace(/,/g, " ")} km`}</li>
             </ul>
           </div>
         </div>
       </div>
-      <button type="button"></button>
+      <button
+        className={css.button}
+        type="button"
+        onClick={() => router.push(`/catalog/${car.id}`)}
+      >
+        Read more
+      </button>
     </li>
   );
 };

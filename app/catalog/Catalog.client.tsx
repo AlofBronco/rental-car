@@ -52,10 +52,13 @@ const CatalogClient = () => {
       return data;
     },
     initialPageParam: 1,
-    getNextPageParam: (lastPage) =>
-      lastPage.totalPages !== Number(lastPage.page)
+    getNextPageParam: (lastPage) => {
+      if (lastPage.totalPages === 0) return undefined;
+
+      return lastPage.totalPages !== Number(lastPage.page)
         ? Number(lastPage.page) + 1
-        : undefined,
+        : undefined;
+    },
     placeholderData: keepPreviousData,
     refetchOnMount: false,
   });
@@ -65,9 +68,14 @@ const CatalogClient = () => {
   return (
     <main className={css.main}>
       {brands && <Filters brands={brands} onClick={setFilters} />}
-      {isLoading && <p>Loading...</p>}
-      {error && <p>There is an error</p>}
+      {isLoading && <p className={css.message}>Loading...</p>}
+      {error && <p className={css.message}>There is an error</p>}
       {cars && <CarsList cars={cars} />}
+      {cars.length <= 0 && (
+        <p className={css.message}>
+          No cars to show. Please choose another filter
+        </p>
+      )}
       {hasNextPage && (
         <button
           className={css.paginationButton}

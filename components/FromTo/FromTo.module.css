@@ -1,5 +1,6 @@
 .fromtoWrapper {
     display: flex;
+    position: relative;
 }
 
 .block {
@@ -60,4 +61,10 @@
 /* For other browsers (general approach) */
 .block input[type="number"] {
     appearance: textfield;
+}
+
+.errorMsg {
+    position: absolute;
+    right: 0;
+    color: red;
 }

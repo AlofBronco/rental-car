@@ -3,8 +3,8 @@ import css from "./Select.module.css";
 
 interface SelectProps {
   label: string;
-  value: string;
-  onChange: (option: string) => void;
+  value: string | undefined;
+  onChange: (option: string | undefined) => void;
   options: string[];
   placeholder: string;
 }
@@ -29,6 +29,13 @@ const Select = ({
     return () => document.removeEventListener("mousedown", close);
   }, []);
 
+  let addition;
+  if (placeholder === "Choose a price") {
+    addition = "To $";
+  } else {
+    addition = "";
+  }
+
   return (
     <div className={css.selectWrapper} ref={ref}>
       <p className={css.label}>{label}</p>
@@ -39,7 +46,7 @@ const Select = ({
           onClick={() => setOpen((prev) => !prev)}
           type="button"
         >
-          {value ? value : placeholder}
+          {value ? addition + value : placeholder}
           <svg
             className={`${css.arrow} ${open ? css.up : css.down}`}
             width="16"
@@ -51,6 +58,16 @@ const Select = ({
 
         {open && (
           <ul className={css.dropdown}>
+            <li
+              key={"All"}
+              className={css.dropdownItem}
+              onClick={() => {
+                onChange(undefined);
+                setOpen(false);
+              }}
+            >
+              All
+            </li>
             {options.map((opt) => (
               <li
                 key={opt}

@@ -21,6 +21,8 @@ const FromTo = ({ from, to, setFrom, setTo }: FromToProps) => {
     return value.replace(prefix, "").replace(/[ ,]/g, "");
   };
 
+  const invalidRange = from && to && Number(from) > Number(to);
+
   return (
     <div className={css.fromtoWrapper}>
       <div className={`${css.blockFrom} ${css.block}`}>
@@ -60,6 +62,9 @@ const FromTo = ({ from, to, setFrom, setTo }: FromToProps) => {
           }}
         />
       </div>
+      {invalidRange && (
+        <p className={css.errorMsg}>From cannot be greater than To</p>
+      )}
     </div>
   );
 };

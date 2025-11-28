@@ -2,6 +2,10 @@
     flex-basis: calc((100% - 96px) / 4);
 }
 
+.mainBlock {
+    margin-bottom: 28px;
+}
+
 .imageWrapper {
     position: relative;
     margin-bottom: 16px;
@@ -60,5 +64,40 @@
     line-height: 1.33333;
     color: var(--gray);
     display: flex;
-    gap: 12px;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.infoList li {
+    position: relative;
+    padding-right: 6px;
+}
+
+.infoList li:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 12px;
+    background-color: var(--gray);
+    opacity: 0.4;
+}
+
+.button {
+    border-radius: 12px;
+    padding: 12px 99px;
+    background-color: var(--button);
+    font-family: var(--font-family);
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1.25;
+    color: var(--white);
+    width: 100%;
+}
+
+.button:hover,
+.button:focus {
+    background-color: var(--button-hover);
 }

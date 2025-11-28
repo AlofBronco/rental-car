@@ -1,6 +1,6 @@
 export interface Filters {
-  brand: string;
-  price: string;
-  from: string;
-  to: string;
+  brand?: string;
+  price?: string;
+  from?: string;
+  to?: string;
 }

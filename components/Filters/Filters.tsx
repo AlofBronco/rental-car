@@ -13,8 +13,8 @@ interface FiltersProps {
 }
 
 const Filters = ({ brands, onClick }: FiltersProps) => {
-  const [brand, setBrand] = useState("");
-  const [price, setPrice] = useState("");
+  const [brand, setBrand] = useState<string | undefined>("");
+  const [price, setPrice] = useState<string | undefined>("");
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
 
