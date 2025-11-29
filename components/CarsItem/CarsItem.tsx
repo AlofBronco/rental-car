@@ -3,15 +3,19 @@
 import { Car } from "@/types/cars";
 import css from "./CarsItem.module.css";
 import Image from "next/image";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useStore } from "@/lib/store/store";
 
 interface CarsItemProps {
   car: Car;
 }
 
 const CarsItem = ({ car }: CarsItemProps) => {
-  const [liked, setLiked] = useState(false);
+  const favorites = useStore((state) => state.favorites);
+  const updateFavorites = useStore((state) => state.updateFavorites);
+
+  const liked = favorites.includes(car.id);
+
   const router = useRouter();
 
   return (
@@ -28,7 +32,7 @@ const CarsItem = ({ car }: CarsItemProps) => {
           <button
             type="button"
             className={css.likeButton}
-            onClick={() => setLiked(!liked)}
+            onClick={() => updateFavorites(car.id)}
           >
             <svg
               className={`${css.likeIcon} ${liked ? css.active : ""}`}

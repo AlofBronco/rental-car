@@ -2,21 +2,25 @@
 
 import { Brand } from "@/types/brands";
 import Select from "../Select/Select";
-import { useState } from "react";
 import css from "./Filters.module.css";
 import FromTo from "../FromTo/FromTo";
 import { type Filters } from "@/types/filters";
+import { useStore } from "@/lib/store/store";
+import { useEffect, useState } from "react";
 
 interface FiltersProps {
   brands: Brand[];
-  onClick: (filters: Filters) => void;
+  onClick: (filters: Filters | null) => void;
 }
 
 const Filters = ({ brands, onClick }: FiltersProps) => {
-  const [brand, setBrand] = useState<string | undefined>("");
-  const [price, setPrice] = useState<string | undefined>("");
-  const [from, setFrom] = useState("");
-  const [to, setTo] = useState("");
+  const filters = useStore((state) => state.filters);
+
+  const [localFilters, setLocalFilters] = useState(filters);
+
+  useEffect(() => {
+    setLocalFilters(filters);
+  }, [filters]);
 
   const prices = ["30", "40", "50", "60", "70", "80", "90", "100"];
 
@@ -24,26 +28,31 @@ const Filters = ({ brands, onClick }: FiltersProps) => {
     <div className={css.filters}>
       <Select
         label="Car brand"
-        value={brand}
-        onChange={setBrand}
+        value={localFilters?.brand}
+        onChange={(val) => setLocalFilters({ ...localFilters, brand: val })}
         options={brands}
         placeholder="Choose a brand"
       />
 
       <Select
         label="Price/ 1 hour"
-        value={price}
-        onChange={setPrice}
+        value={localFilters?.price}
+        onChange={(val) => setLocalFilters({ ...localFilters, price: val })}
         options={prices}
         placeholder="Choose a price"
       />
 
-      <FromTo from={from} to={to} setFrom={setFrom} setTo={setTo} />
+      <FromTo
+        from={localFilters?.from}
+        to={localFilters?.to}
+        setFrom={(val) => setLocalFilters({ ...localFilters, from: val })}
+        setTo={(val) => setLocalFilters({ ...localFilters, to: val })}
+      />
 
       <button
         className={css.button}
         type="button"
-        onClick={() => onClick({ brand, price, from, to })}
+        onClick={() => onClick(localFilters)}
       >
         Search
       </button>

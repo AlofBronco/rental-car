@@ -3,8 +3,8 @@ import { useId } from "react";
 import css from "./FromTo.module.css";
 
 interface FromToProps {
-  from: string;
-  to: string;
+  from: string | undefined;
+  to: string | undefined;
   setFrom: (from: string) => void;
   setTo: (to: string) => void;
 }
@@ -12,7 +12,7 @@ interface FromToProps {
 const FromTo = ({ from, to, setFrom, setTo }: FromToProps) => {
   const id = useId();
 
-  const format = (value: string, prefix: string) => {
+  const format = (value: string | undefined, prefix: string) => {
     if (!value) return "";
     return `${prefix} ${Number(value).toLocaleString("en-US")}`;
   };

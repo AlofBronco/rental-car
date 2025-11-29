@@ -3,14 +3,13 @@
 import CarsList from "@/components/CarsList/CarsList";
 import Filters from "@/components/Filters/Filters";
 import { fetchBrands, fetchCars } from "@/lib/api/api";
-import { Filters as FiltersType } from "@/types/filters";
 import {
   keepPreviousData,
   useInfiniteQuery,
   useQuery,
 } from "@tanstack/react-query";
-import { useState } from "react";
 import css from "./Catalog.module.css";
+import { useStore } from "@/lib/store/store";
 
 const CatalogClient = () => {
   const { data: brands } = useQuery({
@@ -20,7 +19,8 @@ const CatalogClient = () => {
     refetchOnMount: false,
   });
 
-  const [filters, setFilters] = useState<FiltersType>();
+  const filters = useStore((state) => state.filters);
+  const setFilters = useStore((state) => state.setFilters);
 
   const perPage = 12;
 
@@ -59,7 +59,6 @@ const CatalogClient = () => {
         ? Number(lastPage.page) + 1
         : undefined;
     },
-    placeholderData: keepPreviousData,
     refetchOnMount: false,
   });
 
@@ -71,7 +70,7 @@ const CatalogClient = () => {
       {isLoading && <p className={css.message}>Loading...</p>}
       {error && <p className={css.message}>There is an error</p>}
       {cars && <CarsList cars={cars} />}
-      {cars.length <= 0 && (
+      {cars.length <= 0 && !isLoading && (
         <p className={css.message}>
           No cars to show. Please choose another filter
         </p>
