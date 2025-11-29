@@ -33,6 +33,7 @@ const CarsItem = ({ car }: CarsItemProps) => {
             type="button"
             className={css.likeButton}
             onClick={() => updateFavorites(car.id)}
+            aria-label="Like button"
           >
             <svg
               className={`${css.likeIcon} ${liked ? css.active : ""}`}

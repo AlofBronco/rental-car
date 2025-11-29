@@ -10,7 +10,7 @@ const Header = () => {
   return (
     <header className={css.header}>
       <div className={css.logo}>
-        <Link href="/">
+        <Link href="/" aria-label="RentalCar logo">
           <svg className={css.logoIcon} width="102" height="16">
             <use href="/sprite.svg#icon-logo"></use>
           </svg>
